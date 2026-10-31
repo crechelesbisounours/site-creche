@@ -1,0 +1,87 @@
+{% extends "_base.html" %}
+{% from "_elements.html" import haut_de_page, icone %}
+{% block titre %}Recrutement{% endblock %}
+{% block description %}Rejoindre l'équipe de la crèche Les Bisounours à Rosporden : offres d'emploi, remplacements, stages et apprentissage.{% endblock %}
+{% block contenu %}
+
+{% call haut_de_page("Recrutement", "Rejoignez l'équipe des Bisounours", "Vous êtes professionnel·le de la petite enfance et vous aimez travailler en lien étroit avec les familles ? Découvrez nos offres, nos possibilités de stage ou envoyez-nous une candidature spontanée.") %}
+<div class="row" style="margin-top:8px">
+  <a class="btn btn-yellow" href="#offres">Voir les offres</a>
+  <a class="btn btn-outline" href="#candidater">Candidature spontanée</a>
+</div>
+{% endcall %}
+
+<section class="reveal sec" aria-labelledby="pourquoi-titre">
+  <div class="wrap stack-lg">
+    <h2 id="pourquoi-titre" class="h2">Travailler aux Bisounours</h2>
+    <div class="grid-3">
+      <div class="card bg-sky">
+        <div class="icon-tile">{{ icone("groupe") }}</div>
+        <h3 class="h3">Une équipe pluridisciplinaire</h3>
+        <p>Éducatrices de jeunes enfants, infirmière, auxiliaires de puériculture, animatrices petite enfance, cuisinière et agent d'entretien travaillent ensemble au quotidien.</p>
+      </div>
+      <div class="card bg-pink">
+        <div class="icon-tile">{{ icone("livre") }}</div>
+        <h3 class="h3">La formation au cœur du projet</h3>
+        <p>Analyse de la pratique professionnelle tous les deux mois, journées pédagogiques ACEPP, formation à la langue des signes et formations individuelles pour développer ses compétences.</p>
+      </div>
+      <div class="card bg-vanilla">
+        <div class="icon-tile">{{ icone("coeur") }}</div>
+        <h3 class="h3">Un projet partagé avec les familles</h3>
+        <p>Ateliers avec les parents, intervenants extérieurs, sorties et projets éducatifs : une structure à taille humaine où chacun peut proposer et faire vivre ses idées.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="offres" class="reveal sec bg-peach" aria-labelledby="offres-titre" style="scroll-margin-top:24px">
+  <div class="wrap stack-lg" style="gap:20px">
+    <h2 id="offres-titre" class="h2">Nos offres en cours</h2>
+    {% for o in recrutement.offres %}
+    <article class="offer">
+      <div>
+        <div class="row" style="gap:8px">
+          {% if o.contrat %}<span class="tag">{{ o.contrat }}</span>{% endif %}
+          {% if o.temps %}<span class="tag">{{ o.temps }}</span>{% endif %}
+        </div>
+        <h3 class="h3" style="font-size:26px">{{ o.titre }}</h3>
+        {% if o.description %}<div class="prose">{{ o.description | markdown }}</div>{% endif %}
+      </div>
+      <a class="btn btn-navy" href="mailto:{{ infos.email }}?subject={{ ('Candidature – ' ~ o.titre) | urlencode }}">Postuler</a>
+    </article>
+    {% else %}
+    <div class="offer">
+      <div>
+        <h3 class="h3" style="font-size:26px">Pas d'offre en cours pour le moment</h3>
+        <p>Les candidatures spontanées sont toujours les bienvenues, y compris pour des remplacements. Nous les conservons et vous recontactons dès qu'un poste se libère.</p>
+      </div>
+      <a class="btn btn-navy" href="#candidater">Candidature spontanée</a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="reveal sec" aria-labelledby="stages-titre">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:32px 48px;align-items:center">
+    <div class="stack" style="flex:1 1 480px;min-width:0">
+      <h2 id="stages-titre" class="h2">Stages et apprentissage</h2>
+      <p style="font-size:18px">{{ recrutement.stages }}</p>
+    </div>
+    <a class="btn btn-yellow" href="mailto:{{ infos.email }}?subject={{ 'Demande de stage' | urlencode }}">Demander un stage</a>
+  </div>
+</section>
+
+<section id="candidater" class="reveal sec bg-navy" aria-labelledby="candidater-titre" style="scroll-margin-top:24px">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:32px 48px;align-items:center;justify-content:space-between">
+    <div class="stack" style="flex:1 1 480px;min-width:0">
+      <h2 id="candidater-titre" class="h2" style="color:#B8E52A">Envoyer sa candidature</h2>
+      <p style="font-size:18px">CV et lettre de motivation à adresser à la direction de la crèche, par e-mail ou par courrier : {{ infos.adresse_lieu }}, {{ infos.adresse_rue }}, {{ infos.adresse_ville }}.</p>
+    </div>
+    <div class="row">
+      <a class="btn btn-yellow" href="mailto:{{ infos.email }}?subject={{ 'Candidature spontanée' | urlencode }}">{{ icone("enveloppe", taille=18) }}Écrire à la direction</a>
+      <a class="btn btn-outline-light" href="tel:{{ infos.telephone | tel }}">{{ infos.telephone }}</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

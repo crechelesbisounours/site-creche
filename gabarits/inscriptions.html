@@ -1,0 +1,55 @@
+{% extends "_base.html" %}
+{% from "_elements.html" import haut_de_page, icone %}
+{% block titre %}Inscriptions et infos pratiques{% endblock %}
+{% block description %}Inscrire son enfant à la crèche Les Bisounours à Rosporden : pré-inscription, commissions d'attribution, horaires et tarifs.{% endblock %}
+{% block contenu %}
+
+{{ haut_de_page("Inscriptions et infos pratiques", "Inscrire son enfant", inscriptions.introduction) }}
+
+<section class="reveal sec" aria-label="Étapes de l'inscription">
+  <div class="wrap grid-3">
+    <div class="card bg-sky">
+      <span class="step-num">1</span>
+      <h2 class="h3">Pré-inscription</h2>
+      <p>{{ inscriptions.preinscription }}</p>
+      {% if inscriptions.dossier %}
+      <a class="btn btn-outline btn-sm" style="align-self:flex-start;margin-top:4px" href="{{ inscriptions.dossier | chemin }}" target="_blank" rel="noopener">{{ icone("telecharger", taille=18) }}Dossier (PDF)</a>
+      {% else %}
+      <p class="muted" style="font-weight:600">Le dossier est disponible sur demande auprès de la crèche.</p>
+      {% endif %}
+    </div>
+    <div class="card bg-pink">
+      <span class="step-num">2</span>
+      <h2 class="h3">Commission d'attribution</h2>
+      <p>{{ inscriptions.commission }}</p>
+    </div>
+    <div class="card bg-vanilla">
+      <span class="step-num">3</span>
+      <h2 class="h3">Rencontre et adaptation</h2>
+      <p>{{ inscriptions.adaptation or "Une fois la place attribuée, la direction vous contacte pour organiser une rencontre et l'arrivée de votre enfant." }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal sec bg-navy" aria-labelledby="infos-titre">
+  <div class="wrap stack-lg">
+    <h2 id="infos-titre" class="h2">Infos pratiques</h2>
+    <div class="grid-3" style="gap:32px">
+      <div class="stack" style="gap:8px">
+        <h3 class="h3" style="color:#FFD45C">Horaires</h3>
+        <p>{{ infos.horaires }}{% for l in infos.horaires_details %}<br>{{ l }}{% endfor %}{% if infos.fermetures %}<br>{{ infos.fermetures }}{% endif %}</p>
+      </div>
+      <div class="stack" style="gap:8px">
+        <h3 class="h3" style="color:#FFD45C">Adresse</h3>
+        <p>{{ infos.adresse_lieu }}<br>{{ infos.adresse_rue }}<br>{{ infos.adresse_ville }}</p>
+      </div>
+      <div class="stack" style="gap:8px">
+        <h3 class="h3" style="color:#FFD45C">Tarifs</h3>
+        <p>{{ infos.tarifs }}</p>
+      </div>
+    </div>
+    <a class="btn btn-yellow" style="align-self:flex-start" href="contact.html">Une question ? Nous contacter</a>
+  </div>
+</section>
+
+{% endblock %}

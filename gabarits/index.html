@@ -1,0 +1,133 @@
+{% extends "_base.html" %}
+{% from "_elements.html" import decor, vague_blanche, soulignement, icone %}
+{% block titre %}Accueil{% endblock %}
+{% block contenu %}
+
+<section class="hero">
+  {{ decor() }}
+  <div class="wrap hero-inner hero-split">
+    <div class="hero-text">
+      <p class="eyebrow">{{ accueil.surtitre }}</p>
+      <h1 class="h1">{{ accueil.titre }}</h1>
+      {{ soulignement() }}
+      <p class="lead" style="max-width:560px">{{ accueil.introduction }}</p>
+      <div class="row" style="margin-top:8px">
+        <a class="btn btn-yellow" href="inscriptions.html">Demander une place</a>
+        <a class="btn btn-outline" href="projet.html">Découvrir la crèche</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="hero-blob">
+        {% if accueil.photo %}
+        <img class="photo" src="{{ accueil.photo | chemin }}" alt="{{ accueil.photo_description }}">
+        {% else %}
+        <img class="logo" src="images/logos/bisounours.png" alt="">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {{ vague_blanche() }}
+</section>
+
+<section class="reveal sec-sm" aria-label="La crèche en bref">
+  <div class="wrap grid-4">
+    {% for c in chiffres.chiffres %}
+    <div class="stat"><strong>{{ c.nombre }}</strong><span>{{ c.legende }}</span></div>
+    {% endfor %}
+  </div>
+</section>
+
+{% if actualites %}
+<section class="reveal sec-sm" aria-labelledby="actus-titre">
+  <div class="wrap stack-lg">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px">
+      <h2 id="actus-titre" class="h2">Les dernières nouvelles</h2>
+      <a href="actualites.html" style="font-weight:700">Toutes les actualités →</a>
+    </div>
+    <div class="grid-news">
+      {% for a in actualites[:3] %}
+      <a class="news-card" href="actualites.html#{{ a.slug }}">
+        {% if a.image %}<img src="{{ a.image | chemin }}" alt="{{ a.image_description }}" loading="lazy">{% endif %}
+        <div class="body">
+          <span class="news-date">{{ a.date | date_fr }}</span>
+          <h3 class="h3">{{ a.titre }}</h3>
+          <p class="muted">{{ a.resume }}</p>
+          <span style="font-weight:700;margin-top:auto;color:#2E3A6B">Lire la suite →</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section id="menus" class="reveal sec-sm" aria-labelledby="menus-titre" style="scroll-margin-top:24px">
+  <div class="wrap">
+    <div class="menu-band">
+      <div style="display:flex;align-items:center;gap:20px;flex:1 1 420px;min-width:0">
+        <div class="ico">{{ icone("assiette", taille=32) }}</div>
+        <div class="stack" style="gap:4px">
+          <h2 id="menus-titre" class="h2-sm">Au menu à la crèche</h2>
+          <p style="font-weight:600">{{ menus.periode }}</p>
+          {% if menus.message %}<p class="muted">{{ menus.message }}</p>{% endif %}
+        </div>
+      </div>
+      {% if menus.fichier %}
+      <a class="btn btn-navy" href="{{ menus.fichier | chemin }}" target="_blank" rel="noopener">{{ icone("telecharger", "#FFFFFF", 18) }}Voir les menus (PDF)</a>
+      {% else %}
+      <p class="muted" style="font-weight:600">Les menus seront bientôt disponibles ici.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="reveal sec" aria-labelledby="rubriques-titre" style="padding-top:24px">
+  <div class="wrap stack-lg">
+    <h2 id="rubriques-titre" class="h2">Découvrir les Bisounours</h2>
+    <div class="grid-3">
+      <a class="card bg-sky" href="projet.html">
+        <div class="icon-tile">{{ icone("pousse") }}</div>
+        <span class="h3" style="font-family:var(--display);font-weight:700;color:#2E3A6B">Notre projet</span>
+        <span>Le fonctionnement associatif, notre histoire et la vie de l'association.</span>
+        <span class="more">Lire la suite →</span>
+      </a>
+      <a class="card bg-pink" href="equipe.html">
+        <div class="icon-tile">{{ icone("groupe") }}</div>
+        <span class="h3" style="font-family:var(--display);font-weight:700;color:#2E3A6B">L'équipe</span>
+        <span>Les professionnelles qui font vivre la crèche au quotidien.</span>
+        <span class="more">Rencontrer l'équipe →</span>
+      </a>
+      <a class="card bg-vanilla" href="inscriptions.html">
+        <div class="icon-tile">{{ icone("dossier") }}</div>
+        <span class="h3" style="font-family:var(--display);font-weight:700;color:#2E3A6B">Inscriptions et infos pratiques</span>
+        <span>Le dossier de pré-inscription, les commissions, les horaires et les tarifs.</span>
+        <span class="more">Inscrire son enfant →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="reveal bg-navy sec-sm" aria-label="En pratique">
+  <div class="wrap info-band">
+    <dl>
+      <div><dt>Horaires</dt><dd>{{ infos.horaires }}</dd></div>
+      <div><dt>Téléphone</dt><dd><a href="tel:{{ infos.telephone | tel }}">{{ infos.telephone }}</a></dd></div>
+      <div><dt>E-mail</dt><dd><a href="mailto:{{ infos.email }}">{{ infos.email }}</a></dd></div>
+    </dl>
+    <a class="btn btn-yellow" href="contact.html">Nous contacter</a>
+  </div>
+</section>
+
+<section class="reveal sec-sm" aria-labelledby="partenaires-titre">
+  <div class="wrap stack-lg" style="align-items:center;text-align:center">
+    <h2 id="partenaires-titre" class="h2-sm">Avec le soutien de nos communes partenaires</h2>
+    <div class="partners">
+      <div><img src="images/logos/rosporden.png" alt="Rosporden – Kernével" style="max-height:44px" loading="lazy"></div>
+      <div><img src="images/logos/elliant.png" alt="Elliant" style="max-height:86px" loading="lazy"></div>
+      <div><img src="images/logos/melgven.png" alt="Melgven" style="max-height:80px" loading="lazy"></div>
+      <div><img src="images/logos/saint-yvi.png" alt="Saint-Yvi" style="max-height:64px" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

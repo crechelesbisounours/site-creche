@@ -1,0 +1,32 @@
+{% extends "_base.html" %}
+{% from "_elements.html" import haut_de_page %}
+{% block titre %}Mentions légales{% endblock %}
+{% block contenu %}
+
+{{ haut_de_page("Informations légales", "Mentions légales", "") }}
+
+<section class="sec">
+  <div class="wrap prose stack-lg" style="max-width:860px">
+    <div class="stack">
+      <h2 class="h2-sm">Éditeur du site</h2>
+      <p>Crèche parentale Les Bisounours, association loi 1901.<br>{{ infos.adresse_lieu }}, {{ infos.adresse_rue }}, {{ infos.adresse_ville }}<br>Téléphone : {{ infos.telephone }} · E-mail : <a href="mailto:{{ infos.email }}">{{ infos.email }}</a></p>
+      <p>Directeur ou directrice de la publication : le président ou la présidente de l'association.</p>
+    </div>
+    <div class="stack">
+      <h2 class="h2-sm">Hébergement</h2>
+      <p>GitHub Pages, service de GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
+    </div>
+    <div class="stack">
+      <h2 class="h2-sm">Données personnelles</h2>
+      <p>Ce site ne comporte aucun formulaire et ne collecte aucune donnée personnelle. Les échanges par e-mail ou par téléphone servent uniquement à répondre à votre demande.</p>
+      <p>Le site ne dépose pas de cookies. La carte de la page Contact, fournie par Google, ne se charge que si vous cliquez sur « Afficher la carte » ; Google peut alors déposer ses propres cookies. Les polices de caractères sont chargées depuis le service Google Fonts.</p>
+      <p>Pour toute question sur vos données, ou pour exercer vos droits d'accès, de rectification et de suppression, écrivez à <a href="mailto:{{ infos.email }}">{{ infos.email }}</a>.</p>
+    </div>
+    <div class="stack">
+      <h2 class="h2-sm">Photos et logos</h2>
+      <p>Aucune photo d'enfant n'est publiée sur ce site. Les logos des communes de Rosporden, Elliant, Melgven et Saint-Yvi restent la propriété de ces communes partenaires.</p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

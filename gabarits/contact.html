@@ -1,0 +1,68 @@
+{% extends "_base.html" %}
+{% from "_elements.html" import decor, vague_blanche, soulignement, icone %}
+{% block titre %}Contact{% endblock %}
+{% block description %}Contacter la crèche Les Bisounours à Rosporden : téléphone, e-mail, adresse et plan d'accès.{% endblock %}
+{% block contenu %}
+
+<section class="hero">
+  {{ decor() }}
+  <div class="wrap hero-inner hero-split" style="align-items:flex-start">
+    <div class="hero-text">
+      <p class="eyebrow">Contact</p>
+      <h1 class="h1">Nous contacter</h1>
+      {{ soulignement() }}
+      <p class="lead">Une question, une visite ? Écrivez-nous ou appelez la crèche.</p>
+      <div class="row" style="margin-top:8px">
+        <a class="btn btn-yellow" href="tel:{{ infos.telephone | tel }}">{{ icone("telephone", taille=18) }}{{ infos.telephone }}</a>
+        <a class="btn btn-navy" href="mailto:{{ infos.email }}">{{ icone("enveloppe", "#FFFFFF", 18) }}Nous écrire</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="card" style="background:#FFFFFF;box-shadow:0 14px 30px rgba(46,58,107,.10)">
+        <dl class="contact-list" style="margin:0">
+          <dt>Téléphone</dt><dd><a href="tel:{{ infos.telephone | tel }}">{{ infos.telephone }}</a></dd>
+          <dt>E-mail</dt><dd><a href="mailto:{{ infos.email }}" style="word-break:break-all">{{ infos.email }}</a></dd>
+          <dt>Adresse</dt><dd>{{ infos.adresse_lieu }}<br>{{ infos.adresse_rue }}<br>{{ infos.adresse_ville }}</dd>
+          <dt>Horaires</dt><dd>{{ infos.horaires }}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  {{ vague_blanche() }}
+</section>
+
+{% set adresse = infos.adresse_lieu ~ ", " ~ infos.adresse_rue ~ ", " ~ infos.adresse_ville %}
+<section class="reveal sec" aria-labelledby="acces-titre">
+  <div class="wrap stack-lg" style="gap:20px">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px">
+      <div class="stack" style="gap:6px">
+        <h2 id="acces-titre" class="h2">Venir à la crèche</h2>
+        <p>{{ adresse }}</p>
+      </div>
+      <a class="btn btn-navy" href="https://www.google.com/maps/search/?api=1&amp;query={{ adresse | urlencode }}" target="_blank" rel="noopener">{{ icone("repere", "#FFFFFF", 18) }}Itinéraire Google Maps</a>
+    </div>
+    <div class="map" data-query="{{ adresse }}" data-label="{{ adresse }}">
+      <svg class="bg" aria-hidden="true" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice">
+        <rect width="1200" height="400" fill="#EEF3E6"/>
+        <path d="M760 0 C 820 90 860 140 980 170 C 1080 195 1140 260 1200 300 L1200 0 Z" fill="#D6ECFF"/>
+        <rect x="90" y="40" width="180" height="110" rx="18" fill="#DDF3E4"/>
+        <rect x="420" y="260" width="220" height="100" rx="18" fill="#DDF3E4"/>
+        <path d="M-20 210 C 200 190 380 230 600 200 S 980 150 1220 190" fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linecap="round"/>
+        <path d="M330 -20 C 350 120 300 260 340 420" fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round"/>
+        <path d="M700 -20 C 680 110 720 220 690 420" fill="none" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+        <path d="M-20 90 C 150 110 250 70 420 100" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+        <path d="M760 300 C 860 280 980 320 1220 290" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+      </svg>
+      <div class="pin">
+        <span>Les Bisounours</span>
+        <svg width="40" height="52" viewBox="0 0 24 32" aria-hidden="true"><path d="M12 31s-10-10.5-10-18a10 10 0 0 1 20 0c0 7.5-10 18-10 18z" fill="#B8E52A" stroke="#2E3A6B" stroke-width="2"/><circle cx="12" cy="13" r="4" fill="#2E3A6B"/></svg>
+      </div>
+      <div class="consent">
+        <p>La carte interactive est fournie par Google, qui peut déposer des cookies.</p>
+        <button id="charger-carte" class="btn btn-navy btn-sm" type="button">Afficher la carte</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

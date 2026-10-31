@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+{% from "_elements.html" import haut_de_page %}
+{% block titre %}Actualités{% endblock %}
+{% block description %}Les actualités de la crèche associative Les Bisounours à Rosporden.{% endblock %}
+{% block contenu %}
+
+{{ haut_de_page("Actualités", "Les nouvelles de la crèche", "Événements, projets et moments forts de la vie des Bisounours.") }}
+
+<section class="sec" aria-label="Liste des actualités">
+  <div class="wrap stack-lg" style="max-width:860px">
+    {% for a in actualites %}
+    <article id="{{ a.slug }}" class="news-article reveal">
+      <span class="news-date">{{ a.date | date_fr }}</span>
+      <h2 class="h2-sm">{{ a.titre }}</h2>
+      {% if a.image %}<img src="{{ a.image | chemin }}" alt="{{ a.image_description }}" loading="lazy">{% endif %}
+      <div class="prose">{{ a.html }}</div>
+    </article>
+    {% else %}
+    <p class="lead">Aucune actualité pour le moment.</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

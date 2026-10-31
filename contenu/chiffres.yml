@@ -1,0 +1,11 @@
+chiffres:
+  - nombre: "32"
+    legende: "places agréées par la PMI"
+  - nombre: "66"
+    legende: "enfants accueillis en 2025, pour 60 familles"
+  - nombre: "4"
+    legende: "communes partenaires : Rosporden, Elliant, Melgven, Saint-Yvi"
+  - nombre: "1987"
+    legende: "année de création"
+animations_montant: 2337
+animations_legende: "récoltés en 2025 grâce aux animations"

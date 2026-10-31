@@ -1,0 +1,62 @@
+{% extends "_base.html" %}
+{% from "_elements.html" import haut_de_page, icone %}
+{% block titre %}Notre projet{% endblock %}
+{% block description %}Une crèche associative gérée par les parents depuis 1987 : fonctionnement, histoire et vie de l'association Les Bisounours à Rosporden.{% endblock %}
+{% block contenu %}
+
+{{ haut_de_page("Notre projet", "Une crèche associative, c'est quoi ?", "C'est une crèche gérée par une association de parents : elle est responsable de la structure et emploie le personnel. Chaque année, lors de l'assemblée générale, les parents élisent un conseil d'administration, qui prend les décisions en lien avec la direction et les partenaires (CAF, mairies, PMI, ACEPP).") }}
+
+<section class="reveal sec" aria-label="Les piliers du projet">
+  <div class="wrap grid-3">
+    <div class="card bg-sky">
+      <div class="icon-tile">{{ icone("groupe") }}</div>
+      <h2 class="h3">Les parents impliqués</h2>
+      <p>Chacun participe à son rythme : en siégeant au conseil d'administration, en animant un atelier, en accompagnant une sortie ou en rejoignant la Team Animation, qui organise les événements finançant les projets éducatifs.</p>
+    </div>
+    <div class="card bg-pink">
+      <div class="icon-tile">{{ icone("coeur") }}</div>
+      <h2 class="h3">Une équipe de professionnelles</h2>
+      <p>Éducatrices de jeunes enfants, infirmière, auxiliaires de puériculture, animatrices petite enfance, cuisinière et agent d'entretien : une équipe pluridisciplinaire qui se forme régulièrement. <a href="equipe.html">Rencontrer l'équipe</a></p>
+    </div>
+    <div class="card bg-vanilla">
+      <div class="icon-tile">{{ icone("pousse") }}</div>
+      <h2 class="h3">Un projet pédagogique vivant</h2>
+      <p>Ateliers parents-enfants (musique, jardinage, lecture), psychomotricité, médiation animale, sorties au musée ou chez les pompiers, rencontres intergénérationnelles… et de nouveaux projets : sieste extérieure, journée sans horloge, initiation à l'anglais.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal sec bg-peach" aria-labelledby="histoire-titre">
+  <div class="wrap stack-lg">
+    <h2 id="histoire-titre" class="h2">Près de 40 ans d'histoire</h2>
+    <ol class="timeline">
+      <li><b>1987</b><span>Création de la crèche parentale, rue de Normandie, avec 16 places</span></li>
+      <li><b>2004</b><span>Elle devient crèche associative</span></li>
+      <li><b>2009</b><span>Installation à la Maison de l'Enfance, avenue François Mitterrand : 30 places</span></li>
+      <li><b>2014</b><span>La PMI porte l'agrément à 32 places</span></li>
+      <li><b>2024</b><span>Conventionnement avec Rosporden, Elliant, Melgven et Saint-Yvi</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="reveal sec" aria-labelledby="vie-titre">
+  <div class="wrap split">
+    <div class="stack">
+      <h2 id="vie-titre" class="h2">La vie de l'association</h2>
+      <p style="font-size:18px">Tout au long de l'année, parents et professionnelles se retrouvent autour de moments conviviaux. Les bénéfices financent des intervenants (psychomotricienne, musique, médiation animale, circomotricité), du matériel et des livres pour les enfants.</p>
+      <div id="compteur" class="counter-box" data-target="{{ chiffres.animations_montant }}">
+        <p class="value" aria-hidden="true">{{ chiffres.animations_montant | euros }}</p>
+        <p style="font-weight:600;font-size:17px"><span class="sr-only">{{ chiffres.animations_montant | euros }} </span>{{ chiffres.animations_legende }}</p>
+      </div>
+    </div>
+    <ul class="events">
+      <li><b>Septembre</b><span>Pot de bienvenue des nouvelles familles</span></li>
+      <li><b>Automne</b><span>Troc puériculture automne-hiver</span></li>
+      <li><b>Décembre</b><span>Vente de cadeaux et de chocolats, pot de Noël</span></li>
+      <li><b>Printemps</b><span>Troc puériculture printemps-été, assemblée générale et élection du CA</span></li>
+      <li><b>Été</b><span>Vente de pizzas, pot d'été avant la fermeture estivale</span></li>
+    </ul>
+  </div>
+</section>
+
+{% endblock %}

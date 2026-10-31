@@ -1,0 +1,13 @@
+{% extends "_base.html" %}
+{% from "_elements.html" import haut_de_page %}
+{% block titre %}Page introuvable{% endblock %}
+{% block contenu %}
+
+{% call haut_de_page("Oups", "Cette page s'est cachée sous le tapis d'éveil", "La page que vous cherchez n'existe pas ou a été déplacée.") %}
+<div class="row" style="margin-top:8px">
+  <a class="btn btn-yellow" href="index.html">Retour à l'accueil</a>
+  <a class="btn btn-outline" href="contact.html">Nous contacter</a>
+</div>
+{% endcall %}
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "_base.html" %}
+{% from "_elements.html" import haut_de_page %}
+{% block titre %}L'équipe{% endblock %}
+{% block description %}L'équipe de professionnelles de la petite enfance de la crèche Les Bisounours à Rosporden.{% endblock %}
+{% block contenu %}
+
+{{ haut_de_page("L'équipe", "Les personnes qui font vivre la crèche", equipe.introduction) }}
+
+<section class="reveal sec" aria-label="Membres de l'équipe">
+  <div class="wrap">
+    <ul class="team">
+      {% for m in equipe.membres %}
+      <li>
+        <div class="avatar av-{{ loop.index0 % 4 }}">
+          {% if m.photo %}<img src="{{ m.photo | chemin }}" alt="" loading="lazy">{% else %}<span aria-hidden="true">{{ m.prenom[:1] }}</span>{% endif %}
+        </div>
+        <div><p class="name">{{ m.prenom }}</p><p class="role">{{ m.fonction }}</p></div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="reveal sec bg-sky" aria-labelledby="ca-titre">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:24px 48px;align-items:center;justify-content:space-between">
+    <div class="stack" style="flex:1 1 520px;min-width:0">
+      <h2 id="ca-titre" class="h2">Et le conseil d'administration</h2>
+      <p style="font-size:18px">Une dizaine de parents bénévoles, élus chaque année, assurent la gestion de l'association : présidence, trésorerie, secrétariat, lien avec l'équipe salariée et animation. Ils sont épaulés par une Team Animation d'une vingtaine de membres.</p>
+    </div>
+    <a class="btn btn-yellow" href="recrutement.html">Rejoindre l'équipe</a>
+  </div>
+</section>
+
+{% endblock %}
