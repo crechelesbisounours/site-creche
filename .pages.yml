@@ -1,0 +1,259 @@
+# Configuration de l'interface d'édition Pages CMS (https://pagescms.org)
+# Chaque entrée ci-dessous devient une rubrique dans le menu de l'interface.
+
+media:
+  - name: images
+    label: Photos et images
+    input: static/images/uploads
+    output: images/uploads
+    extensions: [jpg, jpeg, png, webp]
+  - name: documents
+    label: Documents PDF
+    input: static/documents
+    output: documents
+    extensions: [pdf]
+
+content:
+  - name: actualites
+    label: Actualités
+    type: collection
+    path: contenu/actualites
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [titre, date, publiee]
+      primary: titre
+      sort: [date, titre]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: titre
+        label: Titre
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: image
+        label: Photo (facultative, sans enfant reconnaissable)
+        type: image
+        options:
+          media: images
+      - name: image_description
+        label: Description de la photo (pour les personnes malvoyantes)
+        type: string
+      - name: publiee
+        label: Publiée sur le site
+        type: boolean
+        default: true
+      - name: body
+        label: Texte
+        type: rich-text
+        options:
+          format: markdown
+
+  - name: menus
+    label: Menus
+    type: file
+    path: contenu/menus.yml
+    format: yaml
+    fields:
+      - name: periode
+        label: Période (ex. « Semaine du 3 au 7 novembre »)
+        type: string
+      - name: fichier
+        label: Fichier PDF des menus
+        type: file
+        options:
+          media: documents
+          path: static/documents/menus
+      - name: message
+        label: Petit message (facultatif)
+        type: string
+
+  - name: infos
+    label: Infos pratiques
+    type: file
+    path: contenu/infos.yml
+    format: yaml
+    fields:
+      - name: telephone
+        label: Téléphone
+        type: string
+        required: true
+      - name: email
+        label: E-mail
+        type: string
+        required: true
+      - name: adresse_lieu
+        label: Adresse – lieu
+        type: string
+      - name: adresse_rue
+        label: Adresse – rue
+        type: string
+      - name: adresse_ville
+        label: Adresse – code postal et ville
+        type: string
+      - name: horaires
+        label: Horaires d'ouverture
+        type: string
+      - name: horaires_details
+        label: Précisions sur les horaires (une ligne par précision)
+        type: string
+        list: true
+      - name: fermetures
+        label: Fermetures
+        type: string
+      - name: tarifs
+        label: Tarifs
+        type: text
+      - name: lien_formulaire
+        label: Espace parents – lien du formulaire « Transmettre un document »
+        type: string
+      - name: lien_photos
+        label: Espace parents – lien de l'album photos (dossier Drive)
+        type: string
+      - name: lien_documents_communs
+        label: Espace parents – lien des documents communs (dossier Drive)
+        type: string
+
+  - name: accueil
+    label: Page d'accueil
+    type: file
+    path: contenu/accueil.yml
+    format: yaml
+    fields:
+      - name: surtitre
+        label: Petit texte au-dessus du titre
+        type: string
+      - name: titre
+        label: Grand titre
+        type: string
+        required: true
+      - name: introduction
+        label: Texte d'introduction
+        type: text
+      - name: photo
+        label: Photo du haut de page (facultative, sinon le logo s'affiche)
+        type: image
+        options:
+          media: images
+      - name: photo_description
+        label: Description de la photo
+        type: string
+
+  - name: chiffres
+    label: Chiffres clés
+    type: file
+    path: contenu/chiffres.yml
+    format: yaml
+    fields:
+      - name: chiffres
+        label: Chiffres de la page d'accueil
+        type: object
+        list:
+          min: 1
+          max: 4
+        fields:
+          - name: nombre
+            label: Nombre
+            type: string
+          - name: legende
+            label: Légende
+            type: string
+      - name: animations_montant
+        label: Montant récolté par les animations (en euros, compteur animé)
+        type: number
+        options:
+          min: 0
+      - name: animations_legende
+        label: Texte sous le montant
+        type: string
+
+  - name: inscriptions
+    label: Inscriptions
+    type: file
+    path: contenu/inscriptions.yml
+    format: yaml
+    fields:
+      - name: introduction
+        label: Texte d'introduction
+        type: text
+      - name: preinscription
+        label: Étape 1 – Pré-inscription
+        type: text
+      - name: dossier
+        label: Dossier de pré-inscription (PDF)
+        type: file
+        options:
+          media: documents
+      - name: commission
+        label: Étape 2 – Commission d'attribution
+        type: text
+      - name: adaptation
+        label: Étape 3 – Rencontre et adaptation
+        type: text
+
+  - name: equipe
+    label: Équipe
+    type: file
+    path: contenu/equipe.yml
+    format: yaml
+    fields:
+      - name: introduction
+        label: Texte d'introduction
+        type: text
+      - name: membres
+        label: Membres de l'équipe
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{prenom} – {fonction}"
+        fields:
+          - name: prenom
+            label: Prénom
+            type: string
+            required: true
+          - name: fonction
+            label: Fonction
+            type: string
+          - name: photo
+            label: Photo (uniquement avec son accord écrit)
+            type: image
+            options:
+              media: images
+
+  - name: recrutement
+    label: Recrutement
+    type: file
+    path: contenu/recrutement.yml
+    format: yaml
+    fields:
+      - name: offres
+        label: Offres d'emploi en cours (laisser vide s'il n'y en a pas)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{titre}"
+        fields:
+          - name: titre
+            label: Intitulé du poste
+            type: string
+            required: true
+          - name: contrat
+            label: Type de contrat (ex. CDI, CDD, remplacement)
+            type: string
+          - name: temps
+            label: Temps de travail (ex. temps plein, 28 h)
+            type: string
+          - name: description
+            label: Description du poste
+            type: text
+      - name: stages
+        label: Texte sur les stages et l'apprentissage
+        type: text
