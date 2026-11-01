@@ -1,0 +1,104 @@
+{% extends "_base.html" %}
+{% from "_elements.html" import haut_de_page, icone %}
+{% block titre %}Espace parents{% endblock %}
+{% block description %}L'espace réservé aux familles de la crèche Les Bisounours : documents, factures, dépôt de documents et photos.{% endblock %}
+{% block contenu %}
+
+{{ haut_de_page("Espace parents", "Votre espace famille", "Factures, attestations, documents à transmettre et photos de la vie à la crèche : tout est réuni dans un espace privé, accessible uniquement à votre famille et à la crèche.") }}
+
+<section class="reveal sec" aria-label="Accès à l'espace famille">
+  <div class="wrap grid-portail">
+    <div class="card bg-sky">
+      <div class="icon-tile">{{ icone("dossier") }}</div>
+      <h2 class="h3">Mes documents</h2>
+      <p>Factures, attestations fiscales et documents que vous nous avez transmis, rangés dans le dossier de votre enfant.</p>
+      <a class="btn btn-navy btn-sm" style="align-self:flex-start;margin-top:auto" href="https://drive.google.com/drive/shared-with-me" target="_blank" rel="noopener">Ouvrir mon dossier</a>
+      <p class="muted" style="font-size:14px">Ou utilisez le lien reçu dans l'e-mail de bienvenue.</p>
+    </div>
+    <div class="card bg-pink">
+      <div class="icon-tile">{{ icone("telecharger") }}</div>
+      <h2 class="h3">Transmettre un document</h2>
+      <p>Certificat médical, certificat de vaccination, attestation CAF… Choisissez le type de document et envoyez-le : il arrive directement dans le dossier de votre enfant.</p>
+      {% if infos.lien_formulaire %}
+      <a class="btn btn-navy btn-sm" style="align-self:flex-start;margin-top:auto" href="{{ infos.lien_formulaire }}" target="_blank" rel="noopener">Envoyer un document</a>
+      {% else %}
+      <p class="muted" style="font-weight:600;margin-top:auto">Bientôt disponible.</p>
+      {% endif %}
+    </div>
+    <div class="card bg-vanilla">
+      <div class="icon-tile">{{ icone("photo") }}</div>
+      <h2 class="h3">Les photos</h2>
+      <p>Les moments partagés à la crèche, publiés par l'équipe. Merci de ne pas les diffuser en dehors de votre famille.</p>
+      {% if infos.lien_photos %}
+      <a class="btn btn-navy btn-sm" style="align-self:flex-start;margin-top:auto" href="{{ infos.lien_photos }}" target="_blank" rel="noopener">Voir l'album</a>
+      {% else %}
+      <p class="muted" style="font-weight:600;margin-top:auto">Bientôt disponible.</p>
+      {% endif %}
+    </div>
+    <div class="card bg-sky">
+      <div class="icon-tile">{{ icone("livre") }}</div>
+      <h2 class="h3">Documents communs</h2>
+      <p>Règlement de fonctionnement, projet pédagogique, comptes rendus d'assemblée générale…</p>
+      {% if infos.lien_documents_communs %}
+      <a class="btn btn-navy btn-sm" style="align-self:flex-start;margin-top:auto" href="{{ infos.lien_documents_communs }}" target="_blank" rel="noopener">Consulter</a>
+      {% else %}
+      <p class="muted" style="font-weight:600;margin-top:auto">Bientôt disponible.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="reveal sec bg-peach" aria-labelledby="comment-titre">
+  <div class="wrap stack-lg">
+    <div class="stack" style="max-width:720px">
+      <span class="eyebrow">Comment ça marche</span>
+      <h2 id="comment-titre" class="h2">Votre espace famille, en trois temps</h2>
+    </div>
+    <ol class="etapes">
+      <li class="etape">
+        <span class="etape-num">1</span>
+        <h3 class="h3">La crèche ouvre votre espace</h3>
+        <p>Dès l'arrivée de votre enfant, vous recevez un e-mail de bienvenue avec le lien de son dossier.</p>
+      </li>
+      <li class="etape">
+        <span class="etape-num">2</span>
+        <h3 class="h3">Vous vous connectez</h3>
+        <p>Avec un compte Google associé à l'adresse e-mail donnée à la crèche. Pas encore de compte ? Il se crée gratuitement avec votre adresse habituelle, sans boîte Gmail.</p>
+      </li>
+      <li class="etape">
+        <span class="etape-num">3</span>
+        <h3 class="h3">Tout est au même endroit</h3>
+        <p>Factures, attestations et documents que vous nous avez transmis sont classés dans le dossier de votre enfant, à consulter quand vous voulez.</p>
+      </li>
+    </ol>
+    <div class="assurances">
+      <div class="assurance">
+        <div class="icon-tile">{{ icone("cadenas") }}</div>
+        <div><h3>Privé</h3><p>Chaque famille ne voit que le dossier de son enfant. Les accès sont retirés à son départ.</p></div>
+      </div>
+      <div class="assurance">
+        <div class="icon-tile">{{ icone("photo") }}</div>
+        <div><h3>Photos</h3><p>Seuls les enfants dont les parents ont donné leur accord apparaissent dans l'album.</p></div>
+      </div>
+      <div class="assurance">
+        <div class="icon-tile">{{ icone("telecharger") }}</div>
+        <div><h3>Simple</h3><p>Un certificat à transmettre ? Le formulaire le range directement dans le dossier de votre enfant.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal sec-sm">
+  <div class="wrap">
+    <div class="bande-acces">
+      <div class="bande-ico">{{ icone("enveloppe", "#2E3A6B", 30) }}</div>
+      <div class="stack" style="gap:4px;flex:1 1 380px;min-width:0">
+        <h2 class="h2-sm" style="color:#FFFFFF">Pas reçu votre accès ?</h2>
+        <p>Écrivez-nous en indiquant l'adresse e-mail à laquelle vous souhaitez le recevoir.</p>
+      </div>
+      <a class="btn btn-yellow" href="mailto:{{ infos.email }}?subject={{ 'Accès espace parents' | urlencode }}">Demander l'accès</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
